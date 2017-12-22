@@ -1,0 +1,26 @@
+name: cpuminer-multi
+version: 0.0+git-1
+summary: Crypto cpuminer
+description: |
+    This package contains crypto cpuminer (linux + windows)
+    
+    The source can be found at: https://github.com/tpruvot/cpuminer-multi
+confinement: devmode
+grade: devel
+
+apps:
+    minerd:
+        command: bin/minerd
+        plugs: [home, network]
+        aliases: [minerd]
+
+parts:
+    cpuminer-multi:
+        plugin: autotools
+        source: https://github.com/tpruvot/cpuminer-multi.git
+        source-type: git
+        source-branch: master
+        build-packages: [build-essential, make, wget, automake, autoconf, pkg-config, libcurl4-openssl-dev, libjansson-dev, libssl-dev, libgmp-dev, g++]
+        #build: |
+        #  ./autogen.sh && CFLAGS="-march=native" ./configure --with-crypto --with-curl --prefix=/usr && make install && make examples
+
